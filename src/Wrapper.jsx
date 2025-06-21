@@ -16,7 +16,6 @@ export const Wrapper = () => {
   };
 
   const handleChange = (value) => {
-    if (value.trim() === "") return;
     SetnewTodo(value);
   };
 
