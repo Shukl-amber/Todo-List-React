@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { Wrapper } from "./Wrapper.jsx";
+import { Wrapper } from "./Wrapper.jsx"; 
 
 function App() {
   return (

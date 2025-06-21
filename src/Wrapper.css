@@ -13,8 +13,8 @@ body {
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   padding: 2rem 2.5rem 2.5rem 2.5rem;
-  min-width: 500px;
-  max-width: 500px;
+  min-width: 320px;
+  max-width: 450px;
   margin: 2rem auto;
 }
 
@@ -86,4 +86,27 @@ h1 {
   color: #2d3a7b;
   margin-bottom: 1.5rem;
   font-size: 3rem;
+}
+
+@media (max-width: 600px) {
+  .main-card {
+    min-width: 90vw;
+    max-width: 98vw;
+    padding: 1rem 0.5rem 1.5rem 0.5rem;
+  }
+  .todo-search {
+    width: 100%;
+    margin-right: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .add-todo-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+    min-width: 80px;
+  }
+  .input-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
 }
