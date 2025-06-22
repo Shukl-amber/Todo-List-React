@@ -62,6 +62,17 @@ body {
   font-size: 1.1rem;
   color: #222;
   box-shadow: 0 2px 8px rgba(41, 134, 245, 0.07);
+  gap: 1rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.todo-text {
+  flex: 1;
+  text-align: left;
 }
 
 .delete-btn {

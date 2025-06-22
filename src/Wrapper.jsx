@@ -4,8 +4,9 @@ import { getTodos, setTodos } from "./localStorage.jsx";
 
 export const Wrapper = () => {
   const [Todo_Arr, SetTodo_Arr] = useState(() => getTodos());
-
   const [newTodo, SetnewTodo] = useState("");
+  const [isEditing, SetisEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
 
   useEffect(() => {
     setTodos(Todo_Arr);
@@ -13,16 +14,37 @@ export const Wrapper = () => {
 
   const deleteTodo = (index) => {
     SetTodo_Arr(Todo_Arr.filter((_, i) => i !== index));
+    if (isEditing && editIndex === index) {
+      SetisEditing(false);
+      setEditIndex(null);
+      SetnewTodo("");
+    }
   };
 
   const handleChange = (value) => {
     SetnewTodo(value);
   };
 
-  const addTodo = () => {
-    if (newTodo.trim() === "") return;
-    SetTodo_Arr([...Todo_Arr, newTodo]);
+  const addOrEditTodo = () => {
+    if (isEditing && editIndex !== null) {
+      if (newTodo.trim() === "") {
+        alert("Edited~ Value Cannot Be Null");
+        return;
+      }
+      SetTodo_Arr(Todo_Arr.map((_, i) => (i === editIndex ? newTodo : _)));
+      SetisEditing(false);
+      setEditIndex(null);
+    } else {
+      if (newTodo.trim() === "") return;
+      SetTodo_Arr([...Todo_Arr, newTodo]);
+    }
     SetnewTodo("");
+  };
+
+  const editTodo = (index) => {
+    SetnewTodo(Todo_Arr[index]);
+    SetisEditing(true);
+    setEditIndex(index);
   };
 
   return (
@@ -36,17 +58,22 @@ export const Wrapper = () => {
           value={newTodo}
           onChange={(e) => handleChange(e.target.value)}
         />
-        <button className="add-todo-btn" onClick={addTodo}>
-          Add-Todo
+        <button className="add-todo-btn" onClick={addOrEditTodo}>
+          {isEditing ? "Update Todo" : "Add Todo"}
         </button>
       </div>
       <ol>
         {Todo_Arr.map((todo, index) => (
           <li key={index} className="todo-box">
-            {todo}
-            <button className="delete-btn" onClick={() => deleteTodo(index)}>
-              ❌
-            </button>
+            <span className="todo-text">{todo}</span>
+            <span className="button-group">
+              <button className="delete-btn" onClick={() => editTodo(index)}>
+                ✏️
+              </button>
+              <button className="delete-btn" onClick={() => deleteTodo(index)}>
+                ❌
+              </button>
+            </span>
           </li>
         ))}
       </ol>
